@@ -87,8 +87,8 @@ export default function TodoApp() {
 
   return (
     <div
-      className="w-full max-w-[640px] px-6 sm:px-10 pt-16 sm:pt-24 pb-20 animate-fade-in"
-      style={{ marginLeft: 'clamp(1rem, 8vw, 12rem)' }}
+      className="w-full max-w-[640px] pr-6 sm:pr-10 pt-16 sm:pt-24 pb-20 animate-fade-in"
+      style={{ paddingLeft: 'clamp(1rem, 8vw, 12rem)' }}
     >
       <header className="mb-14">
         <h1
