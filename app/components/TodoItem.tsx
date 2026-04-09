@@ -10,36 +10,74 @@ interface TodoItemProps {
 
 export default function TodoItem({ todo, onToggle, onDelete }: TodoItemProps) {
   return (
-    <li className="flex items-center gap-3 p-3 rounded-xl border border-gray-100 hover:border-indigo-100 transition group">
+    <li
+      className="group todo-row flex items-center gap-4 py-4 animate-fade-in-up"
+      style={{ borderBottom: '1px solid var(--border-subtle)' }}
+    >
+      {/* Checkbox — 44px touch target */}
       <button
         onClick={() => onToggle(todo.id)}
-        className={`w-5 h-5 rounded-full border-2 flex-shrink-0 flex items-center justify-center transition ${
-          todo.completed
-            ? 'bg-indigo-500 border-indigo-500'
-            : 'border-gray-300 hover:border-indigo-400'
-        }`}
-        aria-label={todo.completed ? '미완료로 변경' : '완료로 변경'}
+        className="todo-check flex-shrink-0 flex items-center justify-center focus-accent"
+        style={{
+          width: '44px',
+          height: '44px',
+        }}
+        aria-label={todo.completed ? 'Mark as incomplete' : 'Mark as complete'}
       >
-        {todo.completed && (
-          <svg className="w-3 h-3 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={3}>
-            <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
-          </svg>
-        )}
+        <span
+          className="w-[18px] h-[18px] rounded-full border flex items-center justify-center"
+          style={{
+            borderColor: todo.completed ? 'var(--accent-muted)' : 'var(--text-ghost)',
+            background: todo.completed ? 'var(--accent-muted)' : 'transparent',
+          }}
+        >
+          {todo.completed && (
+            <svg
+              width="10"
+              height="10"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="var(--bg-deep)"
+              strokeWidth="3"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            >
+              <path d="M5 13l4 4L19 7" />
+            </svg>
+          )}
+        </span>
       </button>
+
+      {/* Text */}
       <span
-        className={`flex-1 text-sm ${
-          todo.completed ? 'line-through text-gray-300' : 'text-gray-700'
+        className={`flex-1 text-[15px] font-light leading-relaxed transition-colors duration-300 ${
+          todo.completed ? 'todo-strike' : ''
         }`}
+        style={{
+          color: todo.completed ? 'var(--text-ghost)' : 'var(--text-primary)',
+        }}
       >
         {todo.text}
       </span>
+
+      {/* Delete — 44px touch target */}
       <button
         onClick={() => onDelete(todo.id)}
-        className="text-gray-200 hover:text-red-400 transition opacity-100 sm:opacity-0 sm:group-hover:opacity-100"
-        aria-label="삭제"
+        className="todo-delete flex items-center justify-center focus-accent"
+        style={{ width: '44px', height: '44px' }}
+        aria-label="Delete task"
       >
-        <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-          <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
+        <svg
+          width="14"
+          height="14"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          strokeWidth="1.5"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+        >
+          <path d="M18 6L6 18M6 6l12 12" />
         </svg>
       </button>
     </li>

@@ -8,27 +8,36 @@ interface TodoFilterProps {
 }
 
 const filters: { value: FilterType; label: string }[] = [
-  { value: 'all', label: '전체' },
-  { value: 'active', label: '미완료' },
-  { value: 'completed', label: '완료' },
+  { value: 'all', label: 'All' },
+  { value: 'active', label: 'Active' },
+  { value: 'completed', label: 'Done' },
 ];
 
 export default function TodoFilter({ current, onChange }: TodoFilterProps) {
   return (
-    <div className="flex gap-2 mb-4">
+    <nav className="flex gap-6" role="tablist" aria-label="Filter tasks">
       {filters.map(({ value, label }) => (
         <button
           key={value}
           onClick={() => onChange(value)}
-          className={`px-3 py-1 rounded-lg text-sm font-medium transition ${
-            current === value
-              ? 'bg-indigo-500 text-white'
-              : 'bg-gray-100 text-gray-500 hover:bg-gray-200'
+          role="tab"
+          aria-selected={current === value}
+          className={`relative text-xs uppercase tracking-[0.15em] font-medium pb-2 transition-colors duration-300 focus-accent min-h-[44px] flex items-end ${
+            current === value ? '' : 'hover-text-secondary'
           }`}
+          style={{
+            color: current === value ? 'var(--text-primary)' : 'var(--text-ghost)',
+          }}
         >
           {label}
+          {current === value && (
+            <span
+              className="absolute bottom-0 left-0 w-full h-px animate-fade-in"
+              style={{ background: 'var(--accent)' }}
+            />
+          )}
         </button>
       ))}
-    </div>
+    </nav>
   );
 }

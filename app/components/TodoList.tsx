@@ -10,11 +10,25 @@ interface TodoListProps {
 }
 
 export default function TodoList({ todos, onToggle, onDelete }: TodoListProps) {
+  if (todos.length === 0) {
+    return (
+      <div className="py-16 animate-fade-in">
+        <p
+          className="text-sm font-light italic"
+          style={{
+            fontFamily: 'var(--font-cormorant-garamond), Georgia, serif',
+            color: 'var(--text-ghost)',
+            fontSize: '1.1rem',
+          }}
+        >
+          Nothing here yet.
+        </p>
+      </div>
+    );
+  }
+
   return (
-    <ul className="space-y-2">
-      {todos.length === 0 && (
-        <li className="text-center text-gray-300 py-8 text-sm">할 일이 없습니다</li>
-      )}
+    <ul className="stagger-list" role="list">
       {todos.map((todo) => (
         <TodoItem
           key={todo.id}

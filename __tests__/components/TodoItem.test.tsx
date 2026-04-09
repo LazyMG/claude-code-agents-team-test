@@ -21,19 +21,19 @@ describe('TodoItem', () => {
     const completedTodo = { ...baseTodo, completed: true };
     render(<TodoItem todo={completedTodo} onToggle={jest.fn()} onDelete={jest.fn()} />);
     const span = screen.getByText('우유 사기');
-    expect(span.className).toContain('line-through');
+    expect(span.className).toContain('todo-strike');
   });
 
   it('does not show strikethrough when not completed', () => {
     render(<TodoItem todo={baseTodo} onToggle={jest.fn()} onDelete={jest.fn()} />);
     const span = screen.getByText('우유 사기');
-    expect(span.className).not.toContain('line-through');
+    expect(span.className).not.toContain('todo-strike');
   });
 
   it('calls onToggle when check button clicked', async () => {
     const onToggle = jest.fn();
     render(<TodoItem todo={baseTodo} onToggle={onToggle} onDelete={jest.fn()} />);
-    const toggleBtn = screen.getByLabelText('완료로 변경');
+    const toggleBtn = screen.getByLabelText('Mark as complete');
     await userEvent.click(toggleBtn);
     expect(onToggle).toHaveBeenCalledWith('1');
   });
@@ -41,7 +41,7 @@ describe('TodoItem', () => {
   it('calls onDelete when delete button clicked', async () => {
     const onDelete = jest.fn();
     render(<TodoItem todo={baseTodo} onToggle={jest.fn()} onDelete={onDelete} />);
-    const deleteBtn = screen.getByLabelText('삭제');
+    const deleteBtn = screen.getByLabelText('Delete task');
     await userEvent.click(deleteBtn);
     expect(onDelete).toHaveBeenCalledWith('1');
   });

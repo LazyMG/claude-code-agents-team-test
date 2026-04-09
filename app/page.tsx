@@ -1,5 +1,9 @@
 import TodoApp from './components/TodoApp';
 
 export default function Home() {
-  return <TodoApp />;
+  return (
+    <main className="min-h-screen">
+      <TodoApp />
+    </main>
+  );
 }
